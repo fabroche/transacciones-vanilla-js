@@ -34,12 +34,25 @@
 * and display in the console the index of a
 * specific transaction by its amount.
 *
+* 6.Update Transaction Descriptions:
+* Use the forEach method to update the
+* descriptions of transactions.
+* Add the prefix "Expense:" to
+* transactions with negative
+* ammounts and "Income:" to
+* transactions with positive
+* amounts. Display de updated
+* transaction in the console.
+* Remember to adapt and combine
+* these operations as needed
+*
+*
 * */
 
 
 function main() {
 
-    const transactions = generateTransactionsPool(-25000, 25000, 20)
+    let transactions = generateTransactionsPool(-25000, 25000, 20)
 
 
     getTransaction(transactions)
@@ -48,6 +61,8 @@ function main() {
     getPurchaseTransitions(transactions)
     getTransactionByDescription(transactions, transactions[15].description)
     getTransactionIndexByAmount(transactions, transactions[15].amount)
+    transactions = setTransactionsType(transactions)
+
 
 
     // Funciones
@@ -116,13 +131,26 @@ function main() {
 
     function getTransactionIndexByAmount(transactionsList, transactionAmount) {
         // Find the Index of a Transaction by Ammount
-        
+
         console.log(
             `Index of ${transactionAmount}: `,
             transactionsList.indexOf(transactionsList.find(transaction => transaction.amount === transactionAmount))
         )
     }
 
+    function setTransactionsType(transactions) {
+        // Update Transaction Descriptions in base of his types
+        let updatedTransactions = transactions
+        updatedTransactions.forEach(
+            transaction => transaction.amount <= 0
+                ? transaction.description = `Expense: ${transaction.description}`
+                : transaction.description = `Income: ${transaction.description}`
+        )
+
+        console.log('Updated Transactions: ', ...updatedTransactions)
+
+        return updatedTransactions
+    }
 
 }
 
